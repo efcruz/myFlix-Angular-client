@@ -79,7 +79,6 @@ export class FetchApiDataService {
   }
 
   // API call to genre endpoint
-// Get Genre
 getGenre(): Observable<any> {
   
   return this.http
