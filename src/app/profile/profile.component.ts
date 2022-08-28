@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
+    this.getFavoriteMovies();
   }
 
   /**
@@ -146,6 +147,21 @@ export class ProfileComponent implements OnInit {
         localStorage.clear();
       });
     }
+  }
+
+  /**
+   * gets a user's FavoriteMovies
+   * @function getAllMovies
+   */
+   getFavoriteMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      this.movies = resp;
+      this.movies.forEach((movie: any) => {
+        if (this.user.FavoriteMovies.includes(movie._id)) {
+          this.FavoriteMovies.push(movie);
+        }
+      });
+    });    
   }
 
   deleteFavoriteMovies(MovieID: string, Title: string): void {
