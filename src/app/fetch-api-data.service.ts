@@ -8,8 +8,7 @@ import { map } from 'rxjs/operators';
 const apiUrl = 'https://my-flix-movie-app.herokuapp.com/';
 
 const token = localStorage.getItem('token');
-// Get username from localStorage for URLs
-const username = localStorage.getItem('username');
+const username = localStorage.getItem('user');
 
 @Injectable({
   providedIn: 'root'
@@ -98,7 +97,7 @@ getGenre(): Observable<any> {
   getUser(): Observable<any> {
  
     return this.http
-      .get(apiUrl + 'users/' + username, {
+      .get(apiUrl + `users/${username}`, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         })
@@ -112,8 +111,10 @@ getGenre(): Observable<any> {
   // API call to add a favorite movie to user endpoint
   addFavoriteMovie( movieId: any): Observable<any> {
   
+
+
     return this.http
-      .post(apiUrl + `users/${username}/favorites/${movieId}`,{},   {
+      .post(apiUrl + `users/${username}/movies/${movieId}`,{},   {
         headers: new HttpHeaders({
           Authorization: `Bearer ${token}`,
         })
@@ -138,6 +139,17 @@ getGenre(): Observable<any> {
         catchError(this.handleError)
       );
   }
+
+  /*getFavoriteMovies(): Observable<any> {
+    //const reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'No-Auth': 'True' });
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('user');
+    return this.http
+      .get(apiUrl + `users/${username}/movies`, {
+        headers: new HttpHeaders({ Authorization: 'Bearer ' + token }),
+      })
+      .pipe(map(this.extractResponseData), catchError(this.handleError));
+  }*/
 
   // API call to edit user information endpoint
 editUser(updateDetails: any): Observable<any> {
@@ -172,15 +184,16 @@ private extractResponseData(res: any): any {
 }
 
 
-private handleError(error: HttpErrorResponse): any {
+  private handleError(error: HttpErrorResponse): any {
+    
     if (error.error instanceof ErrorEvent) {
-    console.error('Some error occurred:', error.error.message);
+      console.log('Some error occured:', error.error.message);
     } else {
-    console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`);
+      console.log(
+        `Error Status code ${error.status}, ` + `Error Body is: ${error.error}`
+      );
     }
-    throwError(
+    return throwError(
       () => new Error('Something bad happened; please try again later.')
     );
   }
