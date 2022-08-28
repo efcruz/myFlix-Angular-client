@@ -95,7 +95,7 @@ getGenre(): Observable<any> {
 
 // API call to user data endpoint
   // API call to get favortie movies of a user endpoint
-  getUser(username: any): Observable<any> {
+  getUser(): Observable<any> {
  
     return this.http
       .get(apiUrl + 'users/' + username, {
