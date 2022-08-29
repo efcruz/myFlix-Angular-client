@@ -26,7 +26,7 @@ export class MovieCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMovies();
-    //this.getFavoriteMovies();
+    this.getFavoriteMovies();
   }
 
   getMovies(): void {
@@ -37,13 +37,13 @@ export class MovieCardComponent implements OnInit {
       });
     }
 
-    /*getFavoriteMovies(): void {
+    getFavoriteMovies(): void {
       this.fetchApiData.getFavoriteMovies().subscribe((resp: any) => {
-        this.favoriteMovies = resp;
+        this.favoriteMovies = resp.FavoriteMovies;
         console.log(this.favoriteMovies);
         return this.favoriteMovies;
       });
-    }*/
+    }
 
     isFav(id: string): boolean {
       return this.favoriteMovies.includes(id);
