@@ -119,13 +119,8 @@ export class ProfileComponent implements OnInit {
 
   /**
    * deletes the user profile, redirects to welcome screen
-   * @function deleteUserProfile
+   * @function deleteProfile
    * @return status for user has been removed
-   */
-
-  /**
-   * deletes the user profile, redirects to welcome screen
-   * @function deleteUser
    */
   deleteProfile(): void {
     if (
@@ -151,7 +146,7 @@ export class ProfileComponent implements OnInit {
 
   /**
    * gets a user's FavoriteMovies
-   * @function getAllMovies
+   * @function getFavoriteMovies
    */
    getFavoriteMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
@@ -164,6 +159,10 @@ export class ProfileComponent implements OnInit {
     });    
   }
 
+  /**
+   * deletes a user FavoriteMovie
+   * @function deleteFavoriteMovies
+   */
   deleteFavoriteMovies(MovieID: string, Title: string): void {
     this.fetchApiData.removeFavoriteMovie(MovieID).subscribe((res: any) => {
       this.snackBar.open(`Successfully removed ${Title} from favorite movies.`, 'OK', {
